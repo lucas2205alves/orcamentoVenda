@@ -16,10 +16,10 @@
                 </thead>
 
                 <tbody>
-                    <tr>
-                        <td>Lucas</td>
-                        <td>Joinville</td>
-                        <td>22 de maio</td>
+                    <tr th:each="umCliente : ${listaClientes}">
+                        <td th:text="${umCliente.nome}"></td>
+                        <td th:text="${umCliente.endereco}"></td>
+                        <td th:text="${#dates.format(umCliente.dataNasc, 'dd/MM/yyyy')}"></tdt>
                     </tr>
                 </tbody>
             </table>
