@@ -7,4 +7,6 @@ import br.edu.univille.orcamento_venda.entity.Cliente;
 public interface ClienteService {
     List<Cliente> getAll();
 
+    void save(Cliente cliente);
+
 }
