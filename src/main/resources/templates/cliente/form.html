@@ -3,13 +3,14 @@
     lang="pt-br">
 
     <head th:include="layout :: htmlhead"></head>
-
+    
     <body>
         <nav th:replace="layout :: menu">(menu)</nav>
         <main class="container">
-            <form th:action="@{/clientes/(form)}"
+            <form th:action="@{/clientes}"
                 method="POST"
                 th:object="${cliente}">
+                <input type="hidden" th:field="*{id}">
 
                 <div class="form-group">
                     <label for="txtNome">Nome</label>
