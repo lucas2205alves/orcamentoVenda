@@ -8,7 +8,7 @@
             <hr>
 
             <a th:href="@{/clientes/novo}" class="btn btn-primary">Novo</a>
-            <table class="table">
+            <table class="table" id="tabclientes">
                 <thead>
                     <tr>
                         <th>Nome</th>
@@ -24,7 +24,9 @@
                         <td th:text="${umCliente.endereco}"></td>
                         <td th:text="${#dates.format(umCliente.dataNasc, 'dd/MM/yyyy')}"></tdt>
                             <td><a class="btn btn-secondary" th:href="@{'clientes/alterar/' + ${umCliente.id}}">Alterar</a>
-                                <button class="btn btn-danger">Excluir</button>
+                                <button 
+                                th:data-id="${umCliente.id}"
+                                class="btn btn-danger js-delete">Excluir</button>
                             </td>
                     </tr>
                 </tbody>
