@@ -1,5 +1,7 @@
 package br.edu.univille.orcamento_venda.controller;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,12 +12,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.edu.univille.orcamento_venda.entity.Orcamento;
 import br.edu.univille.orcamento_venda.service.OrcamentoService;
+import br.edu.univille.orcamento_venda.service.ClienteService;;
 
 @Controller
 @RequestMapping("/orcamentos")
 public class OrcamentoController {
     @Autowired
     private OrcamentoService service;
+
+    @Autowired
+    private ClienteService clienteService;
 
     @GetMapping
     public ModelAndView index() {
@@ -26,8 +32,13 @@ public class OrcamentoController {
 
     @GetMapping("/novo")
     public ModelAndView novo() {
+        HashMap<String,Object> dados = new HashMap<>();
         var novoOrcamento = new Orcamento();
-        return new ModelAndView("orcamento/form", "orcamento", novoOrcamento);
+        var listaClientes = clienteService.getAll();
+
+        dados.put("orcamento", novoOrcamento);
+        dados.put("listaClientes", listaClientes);
+        return new ModelAndView("orcamento/form", dados);
     }
 
     @PostMapping
@@ -38,7 +49,13 @@ public class OrcamentoController {
 
     @GetMapping("/alterar/{id}")
     public ModelAndView alterar(@PathVariable("id") Orcamento orcamento) {
-        return new ModelAndView("orcamento/form", "orcamento", orcamento);
+
+        HashMap<String,Object> dados = new HashMap<>();
+        var listaClientes = clienteService.getAll();
+        dados.put("orcamento", orcamento);
+        dados.put("listaClientes", listaClientes);
+
+        return new ModelAndView("orcamento/form",dados);
     }
 
     @GetMapping("/remover/{id}")

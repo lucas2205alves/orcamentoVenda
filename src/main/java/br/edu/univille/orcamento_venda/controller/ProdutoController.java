@@ -1,5 +1,6 @@
 package br.edu.univille.orcamento_venda.controller;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,6 +26,7 @@ public class ProdutoController {
     }
 
     @GetMapping("/novo")
+
     public ModelAndView novo() {
         var novoProduto = new Produto();
         return new ModelAndView("produto/form", "produto", novoProduto);
