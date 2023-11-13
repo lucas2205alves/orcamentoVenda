@@ -18,6 +18,45 @@
                         th:field="*{valorTotal}" id="txtNome">
                 </div>
 
+                
+                <div class="form-group">
+                    <label for="txtNome">Valor Final</label>
+                    <input type="text" class="form-control"
+                        th:field="*{valorFinal}" id="txtNome">
+                </div>
+
+                <div class="form-group">
+                    <label for="txtNome">Data Criada</label>
+                    <input type="date" class="form-control"
+                        th:field="*{dataCriada}" id="txtNome">
+                </div>
+
+                
+                <div class="form-group">
+                    <label for="txtNome">Quantidade Total</label>
+                    <input type="text" class="form-control"
+                        th:field="*{quantTotal}" id="txtNome">
+                </div>
+
+                <div class="form-group">
+                    <label for="txtNome">Desconto Unitário</label>
+                    <input type="text" class="form-control"
+                        th:field="*{descontoUnitario}" id="txtNome">
+                </div>
+
+                <div class="form-group">
+                    <label for="txtNome">Desconto Percentual</label>
+                    <input type="text" class="form-control"
+                        th:field="*{descontoPercentual}" id="txtNome">
+                </div>
+
+                <div class="form-group">
+                    <label for="txtNome">Data Vencimento</label>
+                    <input type="date" class="form-control"
+                        th:field="*{validade}" id="txtNome">
+                </div>
+                
+
                 <div class="form-group">
                     <label for="txtCliente">Cliente</label>
                     <select th:field="*{cliente}">
@@ -26,6 +65,12 @@
                         th:value="${umCliente.id}"
                         th:text="${umCliente.nome}" ></option>
                     </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="txtNome">Observação</label>
+                    <input type="text" class="form-control"
+                        th:field="*{observacao}" id="txtNome">
                 </div>
 
 
