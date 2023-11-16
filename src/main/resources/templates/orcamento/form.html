@@ -73,7 +73,87 @@
                         th:field="*{observacao}" id="txtNome">
                 </div>
 
+                <p>
+                </p>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            Produtos
+                        </h5>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Descrição</th>
+                                    <th>Valor</th>
+                                    <th>Quantidade</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="umItem, stat : *{colecaoProdutos}">
+                                    <td th:text="${umItem.descricao}"></td>
+                                    <td th:text="${umItem.valor}"></td>
+                                    <td th:text="${umItem.quantidade}"></td>
+                                    <input type="hidden"
+                                        th:field="*{listaHistoricoManutencao[__${stat.index}__].descricao}">
+                                    
+                                    <input type="hidden"
+                                        th:field="*{listaHistoricoManutencao[__${stat.index}__].valor}">
+                                    
+                                    <input type="hidden"
+                                        th:field="*{listaHistoricoManutencao[__${stat.index}__].quantidade}">
+                                    
 
+                                    <input type="hidden"
+                                        th:field="*{listaHistoricoManutencao[__${stat.index}__].id}">
+                                    
+                                    <td>
+                                        <button class="btn btn-danger"
+                                            type="submit"
+                                            name="removeitem"
+                                            th:value="__${stat.index}__">Remover</button>
+                                    </td>
+                                
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <p>
+                    <h3>Nova Produto</h3>
+                </p>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            Nova Produto
+                        </h5>
+
+                        <div class="form-group">
+                            <label for="txtDescricao">Descrição</label>
+                            <input type="text" id="txtDescricao"
+                                class="form-control"
+                                th:field="${novoItem.descricao}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="txtDescricao">Valor</label>
+                            <input type="text" id="txtDescricao"
+                                class="form-control"
+                                th:field="${novoItem.valor}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="txtDescricao">Quantidade</label>
+                            <input type="text" id="txtDescricao"
+                                class="form-control"
+                                th:field="${novoItem.quantidade}">
+                        </div>
+                        
+                        <button type="submit" name="incitem"
+                            class="btn btn-primary">Adicionar Item</button>
+                    </div>
+                </div>
 
 
                 <div class="form-group">

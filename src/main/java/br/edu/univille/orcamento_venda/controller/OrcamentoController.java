@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.edu.univille.orcamento_venda.entity.Orcamento;
+import br.edu.univille.orcamento_venda.entity.Produto;
 import br.edu.univille.orcamento_venda.service.OrcamentoService;
 import br.edu.univille.orcamento_venda.service.ClienteService;;
 
@@ -38,14 +40,40 @@ public class OrcamentoController {
 
         dados.put("orcamento", novoOrcamento);
         dados.put("listaClientes", listaClientes);
+        dados.put("novoItem", new Produto());
         return new ModelAndView("orcamento/form", dados);
     }
 
-    @PostMapping
+    @PostMapping(params = "save")
     public ModelAndView save(Orcamento orcamento) {
         service.save(orcamento);
         return new ModelAndView("redirect:/orcamentos");
     }
+
+
+    @PostMapping(params = "incitem")
+    public ModelAndView incluirItem(Produto produto, 
+                Produto novoItem){
+        orcamento.getColecaoProdutos().add(novoItem);
+
+        HashMap<String,Object> dados = new HashMap<>();
+        dados.put("orcamento", orcamento);
+        dados.put("novoItem", new Produto());
+        return new ModelAndView("carro/form",dados);
+    }
+
+    @PostMapping(params = "removeitem")
+    public ModelAndView removerItem(Orcamento orcamento, 
+            @RequestParam("removeitem") int index){
+        orcamento.getColecaoProdutos().remove(index);
+
+        HashMap<String,Object> dados = new HashMap<>();
+        dados.put("orcamento", orcamento);
+        dados.put("novoItem", new Produto());
+        return new ModelAndView("carro/form",dados);
+    }
+
+
 
     @GetMapping("/alterar/{id}")
     public ModelAndView alterar(@PathVariable("id") Orcamento orcamento) {
@@ -54,6 +82,7 @@ public class OrcamentoController {
         var listaClientes = clienteService.getAll();
         dados.put("orcamento", orcamento);
         dados.put("listaClientes", listaClientes);
+        dados.put("colecaoProdutos", new Produto());
 
         return new ModelAndView("orcamento/form",dados);
     }
