@@ -1,13 +1,13 @@
 (function(){
     $("#tabclientes").on("click",".js-delete", function(){
         let botaoClicado = $(this);
-        $("#btnsim")
+        $("#btnsimcliente")
             .attr("data-id", botaoClicado.attr("data-id"));
         $("#modalcliente").modal("show");
 
         });
 
-        $("#btnsim").on("click",function(){
+        $("#btnsimcliente").on("click",function(){
             let botaoSim = $(this);
             let id = botaoSim.attr("data-id");
             $.ajax(
@@ -27,13 +27,13 @@
         
         $("#tabprodutos").on("click",".js-delete", function(){
             let botaoClicado = $(this);
-            $("#btnsim")
+            $("#btnsimprodutos")
                 .attr("data-id", botaoClicado.attr("data-id"));
             $("#modalproduto").modal("show");
     
             });
     
-            $("#btnsim").on("click",function(){
+            $("#btnsimprodutos").on("click",function(){
                 let botaoSim = $(this);
                 let id = botaoSim.attr("data-id");
                 $.ajax(
@@ -50,21 +50,21 @@
 
             $("#taborcamentos").on("click",".js-delete", function(){
                 let botaoClicado = $(this);
-                $("#btnsim")
+                $("#btnsimorcamentos")
                     .attr("data-id", botaoClicado.attr("data-id"));
                 $("#modalorcamento").modal("show");
         
                 });
         
-                $("#btnsim").on("click",function(){
+                $("#btnsimorcamentos").on("click",function(){
                     let botaoSim = $(this);
                     let id = botaoSim.attr("data-id");
                     $.ajax(
                         {
-                            url: "/produtos/remover/" + id,
+                            url: "/orcamentos/remover/" + id,
                             method: "GET",
                             success: function(){
-                                window.location.href = "/produtos";
+                                window.location.href = "/orcamentos";
                             }
                         }
                     ); 

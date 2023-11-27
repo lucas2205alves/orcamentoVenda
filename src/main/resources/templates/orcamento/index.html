@@ -13,8 +13,8 @@
                     <tr>
                         <th>Data Criada</th>
                         <th>Data Vencimento</th>
-                        <th>Cliente</th>
                         <th>Quantidade de Produtos</th>
+                        <th>Cliente</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -23,6 +23,7 @@
                     <tr th:each="umOrcamento : ${listaOrcamentos}">
                         <td th:text="${umOrcamento?.dataCriada}"></td>
                         <td th:text="${umOrcamento?.validade}"></td>
+                        <td th:text="${umOrcamento?.quantTotal}"></td>
                         <td th:text="${umOrcamento.cliente?.nome}"></td>
                         <td></td>
                             <td><a class="btn btn-secondary" th:href="@{'clientes/alterar/' + ${umOrcamento.id}}">Alterar</a>
@@ -39,15 +40,15 @@
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title">Excluir Cliente</h5>
+                  <h5 class="modal-title">Excluir Orçamento</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <p>Confirmar a Exclusão do Cliente</p>
+                  <p>Confirmar a Exclusão do Orçamento</p>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
-                  <button type="button" class="btn btn-primary" id="btnsim">Sim</button>
+                  <button type="button" class="btn btn-primary" id="btnsimorcamentos">Sim</button>
                 </div>
               </div>
             </div>
