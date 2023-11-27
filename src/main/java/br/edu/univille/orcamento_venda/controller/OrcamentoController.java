@@ -11,16 +11,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import br.edu.univille.orcamento_venda.entity.ItemOrcamento;
 import br.edu.univille.orcamento_venda.entity.Orcamento;
 import br.edu.univille.orcamento_venda.entity.Produto;
 import br.edu.univille.orcamento_venda.service.OrcamentoService;
-import br.edu.univille.orcamento_venda.service.ClienteService;;
+import br.edu.univille.orcamento_venda.service.ProdutoService;
+import br.edu.univille.orcamento_venda.service.ClienteService;
+import br.edu.univille.orcamento_venda.service.ItemOrcamentoService;;
 
 @Controller
 @RequestMapping("/orcamentos")
 public class OrcamentoController {
     @Autowired
     private OrcamentoService service;
+    @Autowired
+    private ProdutoService produtoService;
 
     @Autowired
     private ClienteService clienteService;
@@ -37,10 +42,12 @@ public class OrcamentoController {
         HashMap<String,Object> dados = new HashMap<>();
         var novoOrcamento = new Orcamento();
         var listaClientes = clienteService.getAll();
+        var listaProdutos = produtoService.getAll();
 
         dados.put("orcamento", novoOrcamento);
         dados.put("listaClientes", listaClientes);
-        dados.put("novoItem", new Produto());
+        dados.put("novoItem", new ItemOrcamento());
+        dados.put("listaProdutos", listaProdutos);
         return new ModelAndView("orcamento/form", dados);
     }
 
@@ -52,25 +59,27 @@ public class OrcamentoController {
 
 
     @PostMapping(params = "incitem")
-    public ModelAndView incluirItem(Produto produto, 
-                Produto novoItem){
-        orcamento.getColecaoProdutos().add(novoItem);
-
+    public ModelAndView incluirItem(Orcamento orcamento, ItemOrcamento novoItem){
+        orcamento.getColecaoItens().add(novoItem);
         HashMap<String,Object> dados = new HashMap<>();
+        var listaProdutos = produtoService.getAll();
         dados.put("orcamento", orcamento);
-        dados.put("novoItem", new Produto());
-        return new ModelAndView("carro/form",dados);
+        dados.put("novoItem", new ItemOrcamento());
+        dados.put("listaProdutos", listaProdutos);
+        return new ModelAndView("orcamento/form",dados);
     }
 
     @PostMapping(params = "removeitem")
     public ModelAndView removerItem(Orcamento orcamento, 
             @RequestParam("removeitem") int index){
-        orcamento.getColecaoProdutos().remove(index);
+        orcamento.getColecaoItens().remove(index);
+        var listaProdutos = produtoService.getAll();
 
         HashMap<String,Object> dados = new HashMap<>();
         dados.put("orcamento", orcamento);
-        dados.put("novoItem", new Produto());
-        return new ModelAndView("carro/form",dados);
+        dados.put("novoItem", new ItemOrcamento());
+        dados.put("listaProdutos", listaProdutos);
+        return new ModelAndView("or /form",dados);
     }
 
 
@@ -80,10 +89,12 @@ public class OrcamentoController {
 
         HashMap<String,Object> dados = new HashMap<>();
         var listaClientes = clienteService.getAll();
+        var listaProdutos = produtoService.getAll();
         dados.put("orcamento", orcamento);
         dados.put("listaClientes", listaClientes);
-        dados.put("colecaoProdutos", new Produto());
-
+        dados.put("colecaoItens", new ItemOrcamento());
+        dados.put("novoItem", new ItemOrcamento());
+        dados.put("listaProdutos", listaProdutos);
         return new ModelAndView("orcamento/form",dados);
     }
 

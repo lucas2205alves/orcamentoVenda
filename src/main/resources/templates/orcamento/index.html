@@ -11,20 +11,23 @@
             <table class="table" id="taborcamentos">
                 <thead>
                     <tr>
-                        <th>Nome</th>
-                        <th>Endereço</th>
-                        <th>Data de Nascimento</th>
+                        <th>Data Criada</th>
+                        <th>Data Vencimento</th>
                         <th>Cliente</th>
+                        <th>Quantidade de Produtos</th>
+                        <th></th>
                     </tr>
                 </thead>
 
                 <tbody>
                     <tr th:each="umOrcamento : ${listaOrcamentos}">
-                        <td th:text="${umOrcamento.valorTotal}"></td>
-                        <td th:text="${umCliente.nome?.nome}"></td>
-                            <td><a class="btn btn-secondary" th:href="@{'clientes/alterar/' + ${umCliente.id}}">Alterar</a>
+                        <td th:text="${umOrcamento?.dataCriada}"></td>
+                        <td th:text="${umOrcamento?.validade}"></td>
+                        <td th:text="${umOrcamento.cliente?.nome}"></td>
+                        <td></td>
+                            <td><a class="btn btn-secondary" th:href="@{'clientes/alterar/' + ${umOrcamento.id}}">Alterar</a>
                                 <button 
-                                th:data-id="${umCliente.id}"
+                                th:data-id="${umOrcamento.id}"
                                 class="btn btn-danger js-delete">Excluir</button>
                             </td>
                     </tr>

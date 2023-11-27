@@ -91,22 +91,25 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr th:each="umItem, stat : *{colecaoProdutos}">
-                                    <td th:text="${umItem.descricao}"></td>
-                                    <td th:text="${umItem.valor}"></td>
-                                    <td th:text="${umItem.quantidade}"></td>
+                                <tr th:each="umItem, stat : *{colecaoItens}">
+                                    <td th:text="${umItem.produto?.descricao}"></td>
+                                    <td th:text="${umItem.produto?.valor}"></td>
+                                    <td th:text="${umItem.produto?.quantidade}"></td>
                                     <input type="hidden"
-                                        th:field="*{listaHistoricoManutencao[__${stat.index}__].descricao}">
+                                        th:field="*{colecaoItens[__${stat.index}__].produto.id}">
                                     
                                     <input type="hidden"
-                                        th:field="*{listaHistoricoManutencao[__${stat.index}__].valor}">
+                                        th:field="*{colecaoItens[__${stat.index}__].produto.descricao}">
                                     
                                     <input type="hidden"
-                                        th:field="*{listaHistoricoManutencao[__${stat.index}__].quantidade}">
+                                        th:field="*{colecaoItens[__${stat.index}__].produto.valor}">
+                                    
+                                    <input type="hidden"
+                                        th:field="*{colecaoItens[__${stat.index}__].produto.quantidade}">
                                     
 
                                     <input type="hidden"
-                                        th:field="*{listaHistoricoManutencao[__${stat.index}__].id}">
+                                        th:field="*{colecaoItens[__${stat.index}__].id}">
                                     
                                     <td>
                                         <button class="btn btn-danger"
@@ -121,15 +124,26 @@
                     </div>
                 </div>
                 <p>
-                    <h3>Nova Produto</h3>
+                    <h3>Novo Produto</h3>
                 </p>
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">
-                            Nova Produto
+                            Novo Item Orçamento
                         </h5>
 
+
+
                         <div class="form-group">
+                            <label for="txtCliente">Produto</label>
+                            <select th:field="${novoItem.produto}" class="form-control">
+                                <option
+                                th:each="umProduto : ${listaProdutos}"
+                                th:value="${umProduto.id}"
+                                th:text="${umProduto.descricao}" ></option>
+                            </select>
+                        </div>
+                        <!--<div class="form-group">
                             <label for="txtDescricao">Descrição</label>
                             <input type="text" id="txtDescricao"
                                 class="form-control"
@@ -148,7 +162,7 @@
                             <input type="text" id="txtDescricao"
                                 class="form-control"
                                 th:field="${novoItem.quantidade}">
-                        </div>
+                        </div>-->
                         
                         <button type="submit" name="incitem"
                             class="btn btn-primary">Adicionar Item</button>
@@ -157,7 +171,7 @@
 
 
                 <div class="form-group">
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" name="save" class="btn btn-primary">
                         Enviar
                     </button>
                 </div>
