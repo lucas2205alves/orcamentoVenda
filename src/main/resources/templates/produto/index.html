@@ -23,7 +23,7 @@
                         <td th:text="${umProduto.descricao}"></td>
                         <td th:text="${umProduto.valor}"></td>
                         <td th:text="${umProduto.quantidade}"></tdt>
-                            <td><a class="btn btn-seacondary" th:href="@{'produtos/alterar/' + ${umProduto.id}}">Alterar</a>
+                            <td><a class="btn btn-secondary" th:href="@{'produtos/alterar/' + ${umProduto.id}}">Alterar</a>
                                 <button 
                                 th:data-id="${umProduto.id}"
                                 class="btn btn-danger js-delete">Excluir</button>

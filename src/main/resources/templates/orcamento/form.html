@@ -83,10 +83,9 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th>Id</th>
                                     <th>Descrição</th>
                                     <th>Valor</th>
-                                    <th>Quantidade</th>
+                                    <th></th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -94,23 +93,21 @@
                                 <tr th:each="umItem, stat : *{colecaoItens}">
                                     <td th:text="${umItem.produto?.descricao}"></td>
                                     <td th:text="${umItem.produto?.valor}"></td>
-                                    <td th:text="${umItem.produto?.quantidade}"></td>
-                                    <input type="hidden"
-                                        th:field="*{colecaoItens[__${stat.index}__].produto.id}">
-                                    
+                                    <td></td>
+
                                     <input type="hidden"
                                         th:field="*{colecaoItens[__${stat.index}__].produto.descricao}">
                                     
                                     <input type="hidden"
                                         th:field="*{colecaoItens[__${stat.index}__].produto.valor}">
                                     
-                                    <input type="hidden"
-                                        th:field="*{colecaoItens[__${stat.index}__].produto.quantidade}">
                                     
 
                                     <input type="hidden"
                                         th:field="*{colecaoItens[__${stat.index}__].id}">
+                                        
                                     
+
                                     <td>
                                         <button class="btn btn-danger"
                                             type="submit"
