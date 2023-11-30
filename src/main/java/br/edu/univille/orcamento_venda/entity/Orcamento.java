@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,14 +29,16 @@ public class Orcamento {
 
     @OneToMany
     @JoinColumn(name = "id_produto")
-    private List<Produto> colecaoProdutos = new ArrayList<>();
+    private List<ItemOrcamento> colecaoItens = new ArrayList<>();
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Temporal(value = TemporalType.DATE)
     @Column(name = "data_validade")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date validade;
     @Temporal(value = TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "data_criada")
     private Date dataCriada;
     private double valorTotal;
@@ -140,17 +144,22 @@ public class Orcamento {
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
-
-    public List<Produto> getColecaoProdutos() {
-        return colecaoProdutos;
-    }
-
-    public void setColecaoProdutos(List<Produto> colecaoProdutos) {
-        this.colecaoProdutos = colecaoProdutos;
-    }
+    
 
     public void setId(long id) {
         this.id = id;
     }
 
+    public List<ItemOrcamento> getColecaoItens() {
+        return colecaoItens;
+    }
+
+    public void setColecaoItens(List<ItemOrcamento> colecaoItens) {
+        this.colecaoItens = colecaoItens;
+    }
+
+
+
+
+    
 }

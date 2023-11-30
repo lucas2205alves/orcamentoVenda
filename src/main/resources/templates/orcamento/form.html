@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    lang="pt-br">
+
+    <head th:include="layout :: htmlhead"></head>
+    
+    <body>
+        <nav th:replace="layout :: menu">(menu)</nav>
+        <main class="container">
+            <form th:action="@{/orcamentos}"
+                method="POST"
+                th:object="${orcamento}">
+                <input type="hidden" th:field="*{id}">
+
+                <div class="form-group">
+                    <label for="txtNome">Valor Total</label>
+                    <input type="text" class="form-control"
+                        th:field="*{valorTotal}" id="txtNome">
+                </div>
+
+                
+                <div class="form-group">
+                    <label for="txtNome">Valor Final</label>
+                    <input type="text" class="form-control"
+                        th:field="*{valorFinal}" id="txtNome">
+                </div>
+
+                <div class="form-group">
+                    <label for="txtNome">Data Criada</label>
+                    <input type="date" class="form-control"
+                        th:field="*{dataCriada}" id="txtNome">
+                </div>
+
+                
+                <div class="form-group">
+                    <label for="txtNome">Quantidade Total</label>
+                    <input type="text" class="form-control"
+                        th:field="*{quantTotal}" id="txtNome">
+                </div>
+
+                <div class="form-group">
+                    <label for="txtNome">Desconto Unitário</label>
+                    <input type="text" class="form-control"
+                        th:field="*{descontoUnitario}" id="txtNome">
+                </div>
+
+                <div class="form-group">
+                    <label for="txtNome">Desconto Percentual</label>
+                    <input type="text" class="form-control"
+                        th:field="*{descontoPercentual}" id="txtNome">
+                </div>
+
+                <div class="form-group">
+                    <label for="txtNome">Data Vencimento</label>
+                    <input type="date" class="form-control"
+                        th:field="*{validade}" id="txtNome">
+                </div>
+                
+
+                <div class="form-group">
+                    <label for="txtCliente">Cliente</label>
+                    <select th:field="*{cliente}">
+                        <option
+                        th:each="umCliente : ${listaClientes}"
+                        th:value="${umCliente.id}"
+                        th:text="${umCliente.nome}" ></option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="txtNome">Observação</label>
+                    <input type="text" class="form-control"
+                        th:field="*{observacao}" id="txtNome">
+                </div>
+
+                <p>
+                </p>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            Produtos
+                        </h5>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Descrição</th>
+                                    <th>Valor</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="umItem, stat : *{colecaoItens}">
+                                    <td th:text="${umItem.produto?.descricao}"></td>
+                                    <td th:text="${umItem.produto?.valor}"></td>
+                                    <td></td>
+
+                                    <input type="hidden"
+                                        th:field="*{colecaoItens[__${stat.index}__].produto.descricao}">
+                                    
+                                    <input type="hidden"
+                                        th:field="*{colecaoItens[__${stat.index}__].produto.valor}">
+                                    
+                                    
+
+                                    <input type="hidden"
+                                        th:field="*{colecaoItens[__${stat.index}__].id}">
+                                        
+                                    
+
+                                    <td>
+                                        <button class="btn btn-danger"
+                                            type="submit"
+                                            name="removeitem"
+                                            th:value="__${stat.index}__">Remover</button>
+                                    </td>
+                                
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <p>
+                    <h3>Novo Produto</h3>
+                </p>
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">
+                            Novo Item Orçamento
+                        </h5>
+
+
+
+                        <div class="form-group">
+                            <label for="txtCliente">Produto</label>
+                            <select th:field="${novoItem.produto}" class="form-control">
+                                <option
+                                th:each="umProduto : ${listaProdutos}"
+                                th:value="${umProduto.id}"
+                                th:text="${umProduto.descricao}" ></option>
+                            </select>
+                        </div>
+                        <!--<div class="form-group">
+                            <label for="txtDescricao">Descrição</label>
+                            <input type="text" id="txtDescricao"
+                                class="form-control"
+                                th:field="${novoItem.descricao}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="txtDescricao">Valor</label>
+                            <input type="text" id="txtDescricao"
+                                class="form-control"
+                                th:field="${novoItem.valor}">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="txtDescricao">Quantidade</label>
+                            <input type="text" id="txtDescricao"
+                                class="form-control"
+                                th:field="${novoItem.quantidade}">
+                        </div>-->
+                        
+                        <button type="submit" name="incitem"
+                            class="btn btn-primary">Adicionar Item</button>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <button type="submit" name="save" class="btn btn-primary">
+                        Enviar
+                    </button>
+                </div>
+
+            </form>
+        </main>
+        <div th:include="layout :: footer">(footer)</div>
+    </body>
+</html>

@@ -4,28 +4,31 @@
     <body>
         <nav th:replace="layout :: menu">(menu)</nav>
         <main>
-            <h1>Clientes</h1>
+            <h1>Orçamentos</h1>
             <hr>
 
-            <a th:href="@{/clientes/novo}" class="btn btn-primary">Novo</a>
-            <table class="table" id="tabclientes">
+            <a th:href="@{/orcamentos/novo}" class="btn btn-primary">Novo</a>
+            <table class="table" id="taborcamentos">
                 <thead>
                     <tr>
-                        <th>Nome</th>
-                        <th>Endereço</th>
-                        <th>Data de Nascimento</th>
+                        <th>Data Criada</th>
+                        <th>Data Vencimento</th>
+                        <th>Quantidade de Produtos</th>
+                        <th>Cliente</th>
                         <th></th>
                     </tr>
                 </thead>
 
                 <tbody>
-                    <tr th:each="umCliente : ${listaClientes}">
-                        <td th:text="${umCliente.nome}"></td>
-                        <td th:text="${umCliente.endereco}"></td>
-                        <td th:text="${#dates.format(umCliente.dataNasc, 'dd/MM/yyyy')}"></tdt>
-                            <td><a class="btn btn-secondary" th:href="@{'clientes/alterar/' + ${umCliente.id}}">Alterar</a>
+                    <tr th:each="umOrcamento : ${listaOrcamentos}">
+                        <td th:text="${umOrcamento?.dataCriada}"></td>
+                        <td th:text="${umOrcamento?.validade}"></td>
+                        <td th:text="${umOrcamento?.quantTotal}"></td>
+                        <td th:text="${umOrcamento.cliente?.nome}"></td>
+                        <td></td>
+                            <td><a class="btn btn-secondary" th:href="@{'orcamentos/alterar/' + ${umOrcamento.id}}">Alterar</a>
                                 <button 
-                                th:data-id="${umCliente.id}"
+                                th:data-id="${umOrcamento.id}"
                                 class="btn btn-danger js-delete">Excluir</button>
                             </td>
                     </tr>
@@ -33,19 +36,19 @@
             </table>
         </main>
 
-        <div class="modal" tabindex="-1" id="modalcliente">
+        <div class="modal" tabindex="-1" id="modalorcamento">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title">Excluir Cliente</h5>
+                  <h5 class="modal-title">Excluir Orçamento</h5>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <p>Confirmar a Exclusão do Cliente</p>
+                  <p>Confirmar a Exclusão do Orçamento</p>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Não</button>
-                  <button type="button" class="btn btn-primary" id="btnsimcliente">Sim</button>
+                  <button type="button" class="btn btn-primary" id="btnsimorcamentos">Sim</button>
                 </div>
               </div>
             </div>
