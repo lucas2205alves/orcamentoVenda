@@ -60,12 +60,39 @@ public class OrcamentoController {
 
     @PostMapping(params = "incitem")
     public ModelAndView incluirItem(Orcamento orcamento, ItemOrcamento novoItem){
+        var listaClientes = clienteService.getAll();
         orcamento.getColecaoItens().add(novoItem);
+            Double valorTotal = 0.0;
+            Double quantidade = 0.0;
+            Double valorFinal = 0.0;
+            Double descontoUnitario = 0.0;
+            for (ItemOrcamento itemOrcamento : orcamento.getColecaoItens()) {
+                valorTotal += itemOrcamento.getProduto().getValor();
+            }
+            for (ItemOrcamento itemOrcamento : orcamento.getColecaoItens()) {
+                valorFinal += itemOrcamento.getProduto().getValor();
+            }
+            for (ItemOrcamento itemOrcamento : orcamento.getColecaoItens()) {
+                quantidade += 1;
+            }
+            for (ItemOrcamento itemOrcamento : orcamento.getColecaoItens()) {
+                valorFinal = valorTotal - orcamento.getDescontoUnitario();
+            }
+
+        orcamento.setValorFinal(valorFinal);
+        orcamento.setValorTotal(valorTotal);
+        orcamento.setQuantTotal(quantidade);
+
+
+
+
         HashMap<String,Object> dados = new HashMap<>();
         var listaProdutos = produtoService.getAll();
         dados.put("orcamento", orcamento);
         dados.put("novoItem", new ItemOrcamento());
         dados.put("listaProdutos", listaProdutos);
+        dados.put("listaClientes", listaClientes);
+        dados.put("colecaoItens", new ItemOrcamento());
         return new ModelAndView("orcamento/form",dados);
     }
 
